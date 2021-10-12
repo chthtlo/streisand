@@ -4,7 +4,7 @@ Vagrant.require_version ">= 1.9.0"
 
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/focal64"
 
   config.vm.define "streisand-host", primary: true do |streisand|
     streisand.vm.hostname = "streisand-host"
@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
     streisand.vm.provision "ansible" do |ansible|
       # NOTE: Uncomment the below line for verbose Ansible output
-      # ansible.verbose = "v"
+      ansible.verbose = "v"
       ansible.playbook = "playbooks/vagrant.yml"
       ansible.host_vars = {
         "streisand-host" => {
@@ -33,7 +33,7 @@ Vagrant.configure(2) do |config|
 
     client.vm.provision "ansible" do |ansible|
       # NOTE: Uncomment the below line for verbose Ansible output
-      # ansible.verbose = "v"
+      ansible.verbose = "v"
       ansible.playbook = "playbooks/test-client.yml"
       ansible.host_vars = {
         "streisand-client" => {

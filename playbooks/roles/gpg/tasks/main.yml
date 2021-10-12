@@ -12,7 +12,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0750
+    mode: 0700
 
 - name: "Create the Streisand GPG directory"
   file:

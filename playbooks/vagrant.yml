@@ -15,7 +15,8 @@
     # results in enp0s3 being used when we want enp0s8 to be used. We work
     # around this by setting a route for 8.8.8.8 through enp0s8.
     - name: Workaround Ansible default ipv4 interface detection
-      raw: route add -net 8.8.8.8 netmask 255.255.255.255 enp0s8
+      raw: ip route add 8.8.8.8/32 dev enp0s8
+#      raw: route add -net 8.8.8.8 netmask 255.255.255.255 enp0s8 // route command has been removed from ubuntu focal, required net-tools package
       args:
         executable: /bin/bash
       when: ansible_default_ipv4.alias != "enp0s8"
