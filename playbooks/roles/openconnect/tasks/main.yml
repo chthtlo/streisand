@@ -121,6 +121,7 @@
     name: ocserv.socket
     state: stopped
     enabled: no
+  ignore_errors: yes
 
 - name: Enable the ocserv service
   systemd:
