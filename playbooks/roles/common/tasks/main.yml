@@ -7,6 +7,25 @@
 # Set default variables
 - import_tasks: set-default-variables.yml
 
+- name: Set DNS Servers in /etc/systemd/resolved.conf
+  template:
+    src: "resolved.conf.j2"
+    dest: /etc/systemd/resolved.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Create resolv.conf link
+  file:
+    src:  /run/systemd/resolve/resolv.conf 
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    state: link
+  notify:
+    - Restart systemd-resolved
+
+
 - name: Ensure the APT cache is up to date
   apt:
     update_cache: yes
