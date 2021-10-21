@@ -6,14 +6,6 @@
     state: present
   when: ansible_virtualization_type != 'lxc'
 
-- name: Add the Shadowsocks PPA
-  apt_repository:
-    repo: 'ppa:max-c-lv/shadowsocks-libev'
-  register: shadowsocks_add_apt_repository
-  until: not shadowsocks_add_apt_repository.failed
-  retries: "{{ apt_repository_retries }}"
-  delay: "{{ apt_repository_delay }}"
-
 - name: Install shadowsocks-libev
   apt:
     package: "shadowsocks-libev"
@@ -69,7 +61,7 @@
     path: "{{ shadowsocks_systemd_service_path }}"
     state: directory
 
-- name: Generate the nginx systemd service file
+- name: Generate the shadowsocks systemd service file
   template:
     src: shadowsocks-libev.service.j2
     dest: "{{ shadowsocks_systemd_service_path }}/10-restart-failure.conf"
